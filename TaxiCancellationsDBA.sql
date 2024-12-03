@@ -1,4 +1,4 @@
--- CST 498 Taxi Cancellations Database Group 2
+-- CST 499 Taxi Cancellations Database Group 2
 
 -- Create Database
 CREATE DATABASE TaxiCancellations;
@@ -25,14 +25,6 @@ CREATE TABLE Trip (
     online_booking TINYINT(1),
     website_booking TINYINT(1),
     FOREIGN KEY (userID) REFERENCES Customer(userID)
-);
-
--- Create the Care_Cancellation table
-CREATE TABLE Car_Cancellation (
-    car_cancellationID INT AUTO_INCREMENT PRIMARY KEY,
-	trip_id INT,
-    cancellation TINYINT(1),
-    FOREIGN KEY (trip_id) REFERENCES Trip(trip_id)
 );
 
 -- Create the Cab table
@@ -62,6 +54,18 @@ CREATE TABLE Location (
     from_zip VARCHAR(20),
     from_country VARCHAR(100),
     FOREIGN KEY (trip_id) REFERENCES Trip(trip_id)
+);
+
+-- Create the Payments table
+CREATE TABLE Payment (
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT,
+    card_number VARCHAR(16),
+    expiry_date VARCHAR(5),
+    cvv INT,
+    amount DECIMAL(10, 2),
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (booking_id) REFERENCES Booking(booking_id)
 );
 
 -- Insert values into cab table
